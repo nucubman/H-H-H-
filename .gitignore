@@ -1,0 +1,70 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+
+char * random_string(int length) {
+	const char charset[] = "abcdefghijklmnopqrstuvwxyz";
+	char *rs = malloc(length + 1);
+
+	if (length) {
+		if (rs) {
+			int l = (int)(sizeof(charset) - 1);
+			int key;
+			for (int n = 0; n < length; n++) {
+				key = rand() % l;
+				rs[n] = charset[key];
+			}
+
+			rs[length] = '\0';
+		}
+	}
+
+	return rs;
+}
+
+
+char * random_name(int length) {
+	const char v1[] = "aeiouy";
+	const char v2[] = "bcdfghjklmnpqrstvwxz";
+	char *rs = malloc(length + 1);
+
+	int lv1 = (int)(sizeof(v1) - 1);
+	int lv2 = (int)(sizeof(v2) - 1);
+
+	if (length) {
+		if (rs) {
+			
+			int key;
+			for (int n = 0; n < length; n++) {
+				if (n % 2) {
+					key = rand() % lv1;
+					rs[n] = v1[key];
+				}
+				else {
+					key = rand() % lv2;
+					rs[n] = v2[key];
+				}				
+			}
+
+			rs[length] = '\0';
+		}
+	}
+
+	return rs;
+}
+
+
+
+main() {
+	srand(time(NULL));
+	
+	for (int i=0; i <100; i++){
+		printf("%s\n",random_string(rand() % 5+4));
+	}
+	
+	getchar();
+}
